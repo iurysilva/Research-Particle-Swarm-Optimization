@@ -1,34 +1,34 @@
 import matplotlib.pyplot as plt
-import random
-from matplotlib.animation import FuncAnimation
-from objects.particle import Particle
-from objects.swarm import Swarm
+from objects import Swarm
+from objects import AlgorithmSettings
 from objects.benchmark_functions import *
+from run_options import run_without_animation
+from procedures.generate_random_variable_methods import *
 
-swarm= Swarm() #inicializando objeto Swam
-
-'''--------------------Variáveis globais para execução personalizada--------------------'''
-#funções disponíveis:
-#Ackley,Quadratic,Cross,Easom,Beale,Booth,Bukin6,Eggholder,Schaffer2,Rastrigin
-swarm.function= Tang
-swarm.number_of_particles= 50
-swarm.dimensions= 2  #Só há funções para 2 dimensões disponíveis
-animation_format= '3D'
+function = Sphere()  # Sphere, Cross, Bukin6, Eggholder
+particles_number = 50
+random_variable_method = rotationally_variant  # rotationally_variant, rotationally_invariant
 c1 = 2.05
 c2 = 2.05
-w= 0.5
-iterations=200
-precision= 1 #quanto menor (abaixo de 1), maior a qualidade do gráfico
-animation_velocity= 1 #intervalo entre iterações em milissegundos
+w = 0.5
+iterations = 4000
+animation_format = False  # False, '2D', 3D
+precision = 1  # Pacing for the graphic building
+animation_velocity = 20  # In millisecond's
 
 
+algorithm_settings = AlgorithmSettings(iterations, particles_number, function, c1, c2, w, random_variable_method)
+swarm = Swarm(particles_number)
+swarm.create_particles(algorithm_settings.function)
+swarm.update_particles_information(function)
 
-if animation_format=='2D':
-    scat2D= plt.scatter(0,0)
+
+if not animation_format:
+    run_without_animation(algorithm_settings, swarm)
     
-elif animation_format=='3D':
-    ax= plt.axes(projection= '3d')
-    scat3D= ax.scatter3D(0,0,0)
+elif animation_format == '3D':
+    ax = plt.axes(projection='3d')
+    scat3D = ax.scatter3D(0, 0, 0)
 
 
 
@@ -92,28 +92,3 @@ def animation2D(frame):
         anim.event_source.stop()
         histogram()
 '''
-
-"""-------------------Execução do código--------------------"""
-cont_angle=0
-cont_iterations=0
-swarm.function(np.array([1,2]),swarm)
-create_particles(swarm) #inicializando um array com todas as particulas
-swarm.particles_informations= np.zeros(swarm.number_of_particles*3,dtype="float64")
-swarm.angles= np.zeros(swarm.number_of_particles*(iterations+1),dtype="float64")
-swarm.average_fitness= np.zeros(iterations+1)
-swarm.fitness_standart_deviation= np.zeros(iterations+1)
-if swarm.dimensions==2: #animação apenas será feita com funções de 2 dimensões
-    update_information_list() #atualizando as posições x e y de cada particula na lista "particles_informations (para ser utilizada nas funções de plot)
-    if animation_format=='3D':
-        anim= FuncAnimation(plt.gcf(),animation3D,interval=animation_velocity,repeat=False,init_func= plot_grafic) #inicia animação
-    elif animation_format=='2D':
-        anim= FuncAnimation(plt.gcf(),animation2D,interval=animation_velocity,repeat=False) #inicia animação
-    plt.show()
-else:
-    '''
-    for i in range(0,iterations):
-        update_position(swarm)
-    print('Posição do gbest na ordem X,Y,Z...')
-    for i in range(swarm.dimensions):
-        print ('{0:.10f}'.format(swarm.gbest[i]))
-    '''
