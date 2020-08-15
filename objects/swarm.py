@@ -34,7 +34,6 @@ class Swarm():
             self.gbest = particle.position
             self.gbest_fitness = particle.fitness
 
-
     def update_particles_information(self, function):
         if type(self.particles_information) == int:
             self.particles_information = np.zeros(self.particles_number * (function.dimensions + 1), dtype="float64")

@@ -44,5 +44,6 @@ def do_one_iteration(swarm, algorithm_settings, iteration):
         update_particle_position(swarm, algorithm_settings, particle, r1, r2, algorithm_settings.c1, algorithm_settings.c2)
     update_particles_angles(swarm, algorithm_settings)
     swarm.particles = make_particles_stay_on_bounds(swarm, algorithm_settings, swarm.particles)
+    swarm.update_particles_information(algorithm_settings.function)
     swarm.update_average_fitness(algorithm_settings.iterations, iteration)
     swarm.update_fitness_deviation(algorithm_settings.iterations, iteration)

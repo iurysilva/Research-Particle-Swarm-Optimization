@@ -7,3 +7,4 @@ class AlgorithmSettings:
         self.c2 = c2
         self.w = w
         self.random_variable_method = random_variable_method
+        self.iteration = 0
