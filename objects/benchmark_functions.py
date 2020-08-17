@@ -6,6 +6,7 @@ class Bukin6:
         self.limits = np.array([-15, 3], dtype="int64")
         self.function_minimum = np.array([-10, 1])
         self.dimensions = 2
+        self.precision = 0.5
 
     def result(self, x):
         return 100 * (np.sqrt(np.absolute(x[1] - 0.01 * x[0] ** 2))) + (0.01 * np.absolute(x[0] + 10))
@@ -16,6 +17,7 @@ class Eggholder:
         self.limits = np.array([-512, 512], dtype="int64")
         self.function_minimum = np.array([512, 404.2319])
         self.dimensions = 2
+        self.precision = 60
 
     def result(self, x):
         return -(x[1] + 47) * np.sin(np.sqrt(np.absolute(x[1] + (x[0] / 2) + 47))) - x[0] * np.sin(
@@ -27,9 +29,10 @@ class Sphere:
         self.limits = np.array([-32, 32], dtype="int64")
         self.function_minimum = np.array([0, 0])
         self.dimensions = 2
+        self.precision = 5
 
     def result(self, x):
-        return np.sum(x ** 2)
+        return x[0]**2 + x[1]**2
 
 
 class Cross:
@@ -37,6 +40,7 @@ class Cross:
         self.limits = np.array([-10, 10], dtype="int64")
         self.function_minimum = np.array([1.349407, 1.349407])
         self.dimensions = 2
+        self.precision = 1
 
     def result(self, x):
         a = np.sqrt(x[0] ** 2 + x[1] ** 2) / np.pi

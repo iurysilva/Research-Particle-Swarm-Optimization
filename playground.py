@@ -3,6 +3,7 @@ from objects import AlgorithmSettings
 from objects.benchmark_functions import *
 from run_options import run_without_animation
 from run_options import run_animation_2d
+from run_options import run_animation_3d
 from procedures.generate_random_variable_methods import *
 
 function = Eggholder()  # Sphere, Cross, Bukin6, Eggholder
@@ -11,9 +12,8 @@ random_variable_method = rotationally_variant  # rotationally_variant, rotationa
 c1 = 2.05
 c2 = 2.05
 w = 0.5
-iterations = 1000
-animation_format = '2D'  # False, '2D', 3D
-precision = 1  # Pacing for the graphic building
+iterations = 200
+animation_format = '3D'  # False, '2D', 3D
 animation_velocity = 20  # In millisecond's
 
 
@@ -22,44 +22,10 @@ swarm = Swarm(particles_number)
 swarm.create_particles(algorithm_settings.function)
 swarm.update_particles_information(function)
 
-
-if not animation_format:
-    run_without_animation(algorithm_settings, swarm)
     
-elif animation_format == '2D':
+if animation_format == '2D':
     run_animation_2d(algorithm_settings, swarm, animation_velocity)
-
-
-
-'''
-def plot_grafic():
-    global ax,precision,iterations
-    #desenha o gráfico apenas para 3 dimensões (contando com o fitness)
-    plt.title('iterações restantes: %d'%iterations)
-    plt.xlim(swarm.limits[0]-1,swarm.limits[1]+1)
-    plt.ylim(swarm.limits[0]-1,swarm.limits[1]+1)
-    x_list = np.arange(swarm.limits[0]-1,swarm.limits[1]+1.5,precision)
-    y_list = np.arange(swarm.limits[0]-1,swarm.limits[1]+1.5,precision)
-    new_X, new_Y=np.meshgrid(x_list,y_list)
-    z= swarm.find_fitness(np.array([(new_X),(new_Y)]))
-    ax.contour3D(new_X, new_Y, z,100)
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
-    ax.set_zlabel('z')
-    ax.view_init(50, 270)
-    
-
-def animation3D(frame):
-    global scat3D,iterations
-    #animação apenas para funções com 3 dimensões (contando com o fitness
-    scat3D.remove()
-    aux=swarm.particles_informations
-    scat3D = ax.scatter3D(aux[::3],aux[1::3],aux[2::3],c =  ['k'])
-    update_position(swarm)
-    update_information_list()
-    iterations-=1
-    plt.title('iterações restantes: %d'%(iterations+1))
-    if iterations==-1:
-        anim.event_source.stop()
-        histogram()
-'''
+elif animation_format == '3D':
+    run_animation_3d(algorithm_settings, swarm, animation_velocity)
+else:
+    run_without_animation(algorithm_settings, swarm)
