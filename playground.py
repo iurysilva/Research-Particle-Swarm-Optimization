@@ -6,14 +6,14 @@ from run_options import run_animation_2d
 from run_options import run_animation_3d
 from procedures.generate_random_variable_methods import *
 
-function = Eggholder()  # Sphere, Cross, Bukin6, Eggholder
+function = Sphere()  # Sphere, Cross, Bukin6, Eggholder
 particles_number = 50
-random_variable_method = rotationally_variant  # rotationally_variant, rotationally_invariant
+random_variable_method = rotationally_invariant  # rotationally_variant, rotationally_invariant
 c1 = 2.05
 c2 = 2.05
 w = 0.5
 iterations = 200
-animation_format = '3D'  # False, '2D', 3D
+animation_format = '2D'  # False, '2D', 3D
 animation_velocity = 20  # In millisecond's
 
 

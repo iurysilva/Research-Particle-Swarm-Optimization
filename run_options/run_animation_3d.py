@@ -4,8 +4,8 @@ from procedures import do_one_iteration
 from procedures import make_histogram
 import numpy as np
 
-ax1 = plt.axes(projection='3d')
-scat3d = ax1.scatter3D(0, 0, 0)
+ax1 = 0
+scat3d = 0
 anim = 0
 algorithm_settings = 0
 swarm = 0
@@ -44,9 +44,11 @@ def animation3d(frame):
 
 
 def run_animation_3d(algorithm_settings2, swarm2, animation_velocity):
-    global anim, algorithm_settings, swarm, precision
+    global anim, algorithm_settings, swarm, ax1, scat3d
     algorithm_settings = algorithm_settings2
     swarm = swarm2
+    ax1 = plt.axes(projection='3d')
+    scat3d = ax1.scatter3D(0, 0, 0)
     print("Initializing with 3D animation")
     anim = FuncAnimation(plt.gcf(), animation3d, interval=animation_velocity, repeat=False, init_func=plot_3d_graphic)
     plt.show()

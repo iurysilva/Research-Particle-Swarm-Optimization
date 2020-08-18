@@ -5,7 +5,7 @@ from procedures import make_histogram
 import numpy as np
 
 
-scat2d = plt.scatter(0, 0)
+scat2d = 0
 anim = 0
 algorithm_settings = 0
 swarm = 0
@@ -29,9 +29,10 @@ def animation2d(frame):
 
 
 def run_animation_2d(algorithm_settings2, swarm2, animation_velocity):
-    global anim, algorithm_settings, swarm
+    global anim, algorithm_settings, swarm, scat2d
     algorithm_settings = algorithm_settings2
     swarm = swarm2
+    scat2d = plt.scatter(0, 0)
     print("Initializing with 2D animation")
     anim = FuncAnimation(plt.gcf(), animation2d, interval=animation_velocity, repeat=False)
     plt.show()
