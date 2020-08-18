@@ -1,38 +1,61 @@
 import numpy as np
 
 
+def rotate_x(x, y, theta):
+    return x * np.cos(theta) - y * np.sin(theta)
+
+
+def rotate_y(x, y, theta):
+    return y * np.cos(theta) + x * np.sin(theta)
+
+
 class Bukin6:
     def __init__(self):
         self.limits = np.array([-15, 3], dtype="int64")
         self.function_minimum = np.array([-10, 1])
+        self.function_minimum_fitness = 0
         self.dimensions = 2
         self.precision = 0.5
+        self.rotation_number = 0
 
     def result(self, x):
-        return 100 * (np.sqrt(np.absolute(x[1] - 0.01 * x[0] ** 2))) + (0.01 * np.absolute(x[0] + 10))
+        theta = np.radians(self.rotation_number)
+        x0 = rotate_x(x[0], x[1], theta)
+        x1 = rotate_y(x[0], x[1], theta)
+        return 100 * (np.sqrt(np.absolute(x1 - 0.01 * x0 ** 2))) + (0.01 * np.absolute(x0 + 10))
 
 
 class Eggholder:
     def __init__(self):
         self.limits = np.array([-512, 512], dtype="int64")
         self.function_minimum = np.array([512, 404.2319])
+        self.function_minimum_fitness = 0
         self.dimensions = 2
         self.precision = 60
+        self.rotation_number = 0
 
     def result(self, x):
-        return -(x[1] + 47) * np.sin(np.sqrt(np.absolute(x[1] + (x[0] / 2) + 47))) - x[0] * np.sin(
-            np.sqrt(np.absolute(x[0] - (x[1] + 47))))
+        theta = np.radians(self.rotation_number)
+        x0 = rotate_x(x[0], x[1], theta)
+        x1 = rotate_y(x[0], x[1], theta)
+        return -(x1 + 47) * np.sin(np.sqrt(np.absolute(x1 + (x0 / 2) + 47))) - x0 * np.sin(
+            np.sqrt(np.absolute(x0 - (x1 + 47))))
 
 
 class Sphere:
     def __init__(self):
         self.limits = np.array([-32, 32], dtype="int64")
         self.function_minimum = np.array([0, 0])
+        self.function_minimum_fitness = 0
         self.dimensions = 2
         self.precision = 5
+        self.rotation_number = 0
 
     def result(self, x):
-        return x[0]**2 + x[1]**2
+        theta = np.radians(self.rotation_number)
+        x0 = rotate_x(x[0], x[1], theta)
+        x1 = rotate_y(x[0], x[1], theta)
+        return x0**2 + x1**2
 
 
 class Cross:
