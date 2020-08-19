@@ -29,7 +29,7 @@ class Eggholder:
     def __init__(self):
         self.limits = np.array([-512, 512], dtype="int64")
         self.function_minimum = np.array([512, 404.2319])
-        self.function_minimum_fitness = 0
+        self.function_minimum_fitness = -959.6407
         self.dimensions = 2
         self.precision = 60
         self.rotation_number = 0
@@ -73,12 +73,23 @@ class Cross:
         return -0.0001 * d
 
 
-'''
-def booth(x,swarm):
-    swarm.limits= np.array([-10,10],dtype="int64")
-    swarm.function_minimum= np.array([1,3])
-    return (x[0]+2*x[1]-7)**2+(2*x[0]+x[1]-5)**2
+class Booth:
+    def __init__(self):
+        self.limits = np.array([-10, 10], dtype="int64")
+        self.function_minimum = np.array([1, 3])
+        self.function_minimum_fitness = 0
+        self.dimensions = 2
+        self.precision = 1
+        self.rotation_number = 0
 
+    def result(self, x):
+        theta = np.radians(self.rotation_number)
+        x0 = rotate_x(x[0], x[1], theta)
+        x1 = rotate_y(x[0], x[1], theta)
+        return (x0+2*x1-7)**2+(2*x0+x1-5)**2
+
+
+'''
 def beale(x,swarm):
     swarm.limits= np.array([-4.5,4.5],dtype="int64")
     swarm.function_minimum= np.array([3,0.5])
