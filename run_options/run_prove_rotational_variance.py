@@ -1,5 +1,4 @@
 from objects import Swarm
-from objects import AlgorithmSettings
 from run_options import run_without_animation
 from procedures.generate_random_variable_methods import *
 

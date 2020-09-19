@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Particle():
+class Particle:
     def __init__(self):
         self.position = 0
         self.fitness = 0

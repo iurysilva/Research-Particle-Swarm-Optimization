@@ -17,7 +17,7 @@ def update_particle_position(swarm, algorithm_settings, particle, r1, r2, c1, c2
     personal_component = (particle.pbest - particle.position) * (r1 * c1)
     global_component = (swarm.gbest - particle.position) * (r2 * c2)
     velocity = algorithm_settings.w * particle.velocity + (personal_component + global_component)
-    particle.velocity = velocity
+    particle.velocity = np.copy(velocity)
     particle.position = particle.position + velocity
 
 
