@@ -7,6 +7,7 @@ def check_type(variable, iterations):
         variable = np.zeros(iterations + 1)
     return variable
 
+
 class Swarm():
     def __init__(self, particles_number=0):
         self.particles_number = particles_number
@@ -31,8 +32,8 @@ class Swarm():
 
     def update_gbest(self, particle):
         if particle.fitness < self.gbest_fitness:
-            self.gbest = particle.position
-            self.gbest_fitness = particle.fitness
+            self.gbest = np.copy(particle.position)
+            self.gbest_fitness = np.copy(particle.fitness)
 
     def update_particles_information(self, function):
         if type(self.particles_information) == int:
