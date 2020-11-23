@@ -10,18 +10,19 @@ from procedures.generate_random_variable_methods import *
 from procedures.make_histogram import make_histogram
 
 run_purpose = 'bias'   # 'bias', 'rotational_variance'
-function = Sphere()  # Sphere(), Cross(), Bukin6(), Eggholder(), Booth()
+function = Sphere()  # Sphere(), Cross(), Bukin6(), Eggholder(), Booth(), Easom(), Schaffer2()
 function.dimensions = 2
+function.rotation_number = 0
 particles_number = 50
-modify_velocity = True
+modify_velocity = False
 random_variable_method = rotationally_variant  # rotationally_variant, rotationally_invariant
 c1 = 2.05
 c2 = 2.05
 w = 0.5
 iterations = 1000
 executions_number = 20  # Used in rotational variance run_purpose
-degrees_to_rotate = 90  # Used in rotational variance run_purpose
-animation_format = '2D'  # False, '2D', '3D'
+degrees_to_rotate = 360  # Used in rotational variance run_purpose
+animation_format = '2'  # False, '2D', '3D'
 animation_velocity = 20  # In millisecond's
 
 
@@ -45,7 +46,7 @@ if run_purpose == 'bias':
         make_histogram(algorithm_settings, swarm)
 elif run_purpose == 'rotational_variance':
     result = prove_rotational_variance(algorithm_settings, executions_number, degrees_to_rotate)
-    #plt.ylim(0, 0.00005)
+    #plt.ylim(0, 800000)
     plt.plot(np.arange(0, degrees_to_rotate), result)
     plt.show()
 else:

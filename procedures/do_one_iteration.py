@@ -12,6 +12,16 @@ def balance_components(velocity):
     return velocity
 
 
+def balance_components2(velocity, dimensions):
+    vector = np.array([1, -1])
+    media = (np.sum(velocity)) / dimensions
+    for i in range(0, dimensions):
+        if np.abs(velocity[i]) < np.abs(media)*0.5 and np.random.uniform(0, 1) < 0.5:
+            signal = np.random.randint(0, 2)
+            velocity += np.abs(media) * np.random.uniform(0, 1) * vector[signal]
+    return velocity
+
+
 def update_particles_angles(swarm):
     new_angles = np.array([], dtype="float64")
     for particle in swarm.particles:
@@ -24,17 +34,17 @@ def update_particles_angles(swarm):
 
 
 def update_particle_position(swarm, algorithm_settings, particle, r1, r2):
+    dimensions = algorithm_settings.function.dimensions
     c1 = algorithm_settings.c1
     c2 = algorithm_settings.c2
     personal_component = (particle.pbest - particle.position) * (r1 * c1)
     global_component = (swarm.gbest - particle.position) * (r2 * c2)
     velocity = algorithm_settings.w * particle.velocity + (personal_component + global_component)
     if algorithm_settings.modify_velocity:
-        velocity = balance_components(velocity)
+        velocity = balance_components2(velocity, dimensions)
     particle.velocity = np.copy(velocity)
     particle.position = particle.position + velocity
-    particle.position += 10**-160 * np.random.normal(0, 1, algorithm_settings.function.dimensions)
-    # particle.position += particle.position*np.random.normal(0, 0.1, algorithm_settings.function.dimensions)
+    particle.position += 0.00000000000000001
 
 
 def make_particles_stay_on_bounds(swarm, algorithm_settings, particles):

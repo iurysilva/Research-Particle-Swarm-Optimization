@@ -2,19 +2,11 @@ import numpy as np
 
 
 def update_particle_position(swarm, algorithm_settings, particle, r1, r2, c1, c2):
-    vector = np.array([1, -1])
     personal_component = (particle.pbest - particle.position) * (r1 * c1)
     global_component = (swarm.gbest - particle.position) * (r2 * c2)
     velocity = algorithm_settings.w * particle.velocity + (personal_component + global_component)
-    if np.random.uniform(0, 1) < 0.5 and algorithm_settings.modify_velocity:
-        n = np.random.randint(0, 2)
-        if np.abs(velocity[0]) < np.abs(velocity[1]):
-            velocity[0] += velocity[1]*0.4*vector[n]
-        elif np.abs(velocity[1]) < np.abs(velocity[0]):
-            velocity[1] += velocity[0]*0.4*vector[n]
     particle.velocity = np.copy(velocity)
     particle.position = particle.position + velocity
-    particle.position = np.random.normal(particle.position, 0.00000001)
 
 
 def make_particles_stay_on_bounds(swarm, algorithm_settings, particles):
