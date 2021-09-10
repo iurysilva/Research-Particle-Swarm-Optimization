@@ -2,9 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-*.idea
-token.txt
-funcionalidades/funcionalidade_filmes/api_key.txt
+.idea
 
 # C extensions
 *.so
